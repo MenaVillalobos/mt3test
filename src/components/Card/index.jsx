@@ -1,18 +1,18 @@
 import './index.css'
 
 
-function Card({id, priority, text, status, onDeleteCard}){
+function Card({id, priority, text, status, onUpdateCard}){
 
     return(
         <>
             <div className='card'>
                 <div className='deleteButtonContainer'>
-                    <button onClick={() => onDeleteCard(id)} className='close'>x</button>
+                    <button onClick={() => onUpdateCard(id, 'DELETED')} className='close'>x</button>
                 </div>
                 <div>{priority}</div>
                 <div>{text}</div>
                 <div>{status}</div>
-                <button>Done ✅</button>
+                <button onClick={() => onUpdateCard(id, 'DONE')}>Done ✅</button>
             </div>
         </>
     )

@@ -6,6 +6,8 @@ import { uniqueId } from '../../utils';
 function CardsContainer(){
     const [showCardForm, setShowCardForm] = useState(false);
     const [tasks, setTasks] = useState([]);
+    const [activeTasks, setActiveTasks] = useState();
+    const [doneTasks, setDoneTasks] = useState();
 
     const createTaskForm = (event) => {
         event.preventDefault();
@@ -25,16 +27,36 @@ function CardsContainer(){
         console.log(tasks);
     };
 
-    const deleteCard = (id) => {
+    const updateCard = (id, statusToUpdate) => {
         const indexObject = tasks.findIndex((obj) => obj.id === id);
-        tasks[indexObject].status = 'DELETED';
+        tasks[indexObject].status = statusToUpdate;
         setTasks((prevState) => [
             ...prevState
         ]);
     }
+    
+    const countActiveAndDoneTasks = () => {
+        const activeTasks = tasks.filter((task) => {
+            return (task.status.toUpperCase() === 'ACTIVE')
+        }).length;
+        const doneTasks = tasks.filter((task) => {
+            return (task.status.toUpperCase() === 'DONE')
+        }).length;
+        return {
+            activeTasks,
+            doneTasks,
+        }
+    }
+    // function countDoneTasks = () => {
+
+    // };
 
     useEffect(() => {
         console.log(tasks);
+        const result = countActiveAndDoneTasks();
+        setActiveTasks(result.activeTasks);
+        setDoneTasks(result.doneTasks);
+
     }, [tasks]);
 
     return(
@@ -49,7 +71,7 @@ function CardsContainer(){
                     priority = {task.priority}
                     text = {task.text}
                     status = {task.status}
-                    onDeleteCard = {deleteCard}
+                    onUpdateCard = {updateCard}
                 ></Card>)
                 })}
             </div>
@@ -69,6 +91,10 @@ function CardsContainer(){
                         <button className='createBtn' type='submit'>Create</button>
                     </form>
                 </div>)}
+            </div>
+            <div className='statsContainer'>
+                <span>Active {activeTasks}</span>
+                <span>Done {doneTasks}</span>
             </div>
         </>
     );
