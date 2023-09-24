@@ -1,6 +1,7 @@
 import './index.css'
 import { useEffect, useState } from 'react'
 import Card from '../Card';
+import { uniqueId } from '../../utils';
 
 function CardsContainer(){
     const [showCardForm, setShowCardForm] = useState(false);
@@ -12,6 +13,7 @@ function CardsContainer(){
         setTasks((prevState) => [
             ...prevState,
             {
+                id: uniqueId(),
                 priority: priority.value,
                 text: text.value,
                 status: status.value
@@ -22,19 +24,34 @@ function CardsContainer(){
         console.log(event.target.status.value);
         console.log(tasks);
     };
+
+    const deleteCard = (id) => {
+        const indexObject = tasks.findIndex((obj) => obj.id === id);
+        tasks[indexObject].status = 'DELETED';
+        setTasks((prevState) => [
+            ...prevState
+        ]);
+    }
+
+    useEffect(() => {
+        console.log(tasks);
+    }, [tasks]);
+
     return(
         <>
             <div className='gralContainer'>
                 <div>
                     <button onClick={() => setShowCardForm(true)}>+</button>
                 </div>
-                {tasks.length > 0 && tasks.map(task => (
-                    <Card
-                        priority = {task.priority}
-                        text = {task.text}
-                        status = {task.status}
-                    ></Card>
-                ))}
+                {tasks.length > 0 && tasks.map(task => {
+                    return task.status !== 'DELETED' && task.status !== 'DONE' && (<Card
+                    id = {task.id}
+                    priority = {task.priority}
+                    text = {task.text}
+                    status = {task.status}
+                    onDeleteCard = {deleteCard}
+                ></Card>)
+                })}
             </div>
             <div className='formContainer'>
                 {showCardForm &&             
@@ -48,7 +65,6 @@ function CardsContainer(){
                         <select name='status'>
                             <option value={"Active"}>Active</option>
                             <option value={"Done"}>Done</option>
-                            <option value={"Delete"}>Delete</option>
                         </select>
                         <button className='createBtn' type='submit'>Create</button>
                     </form>

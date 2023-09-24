@@ -2,4 +2,33 @@
     display: flex;
     border: solid 1px black;
     flex-direction: column;
+    margin: 0;
+    padding: 20px;
+}
+.deleteButtonContainer{
+    display: flex;
+    align-self: flex-end;
+    margin-bottom: 20px;
+}
+.close {
+    width: 64px;
+    height: 64px;
+    opacity: 0.3;
+    background: transparent;
+    border: none;
+}
+.close:hover {
+    opacity: 1;
+}
+.close:before, .close:after {
+    content: ' ';
+    height: 66px;
+    width: 4px;
+    background-color: #333;
+}
+.close:before {
+    transform: rotate(45deg);
+}
+.close:after {
+    transform: rotate(-45deg);
 }
