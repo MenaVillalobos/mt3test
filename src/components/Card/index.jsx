@@ -9,10 +9,10 @@ function Card({id, priority, text, status, onUpdateCard}){
                 <div className='deleteButtonContainer'>
                     <button onClick={() => onUpdateCard(id, 'DELETED')} className='close'>x</button>
                 </div>
-                <div>{priority}</div>
-                <div>{text}</div>
-                <div>{status}</div>
-                <button onClick={() => onUpdateCard(id, 'DONE')}>Done ✅</button>
+                <div className='priorityDiv'>Priority: {priority}</div>
+                <div className='textDiv'>{text}</div>
+                <div className='statusDiv'>Status: {status}</div>
+                <button className='doneButton' onClick={() => onUpdateCard(id, 'DONE')}>Done ✅</button>
             </div>
         </>
     )

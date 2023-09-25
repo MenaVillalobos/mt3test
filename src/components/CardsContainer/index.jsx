@@ -27,6 +27,7 @@ function CardsContainer(){
                 status: status.value
             }
         ])
+        setShowCardForm(false);
         console.log(event.target.priority.value);
         console.log(event.target.text.value);
         console.log(event.target.status.value);
@@ -69,7 +70,26 @@ function CardsContainer(){
         <>
             <div className='gralContainer'>
                 <div>
-                    <button onClick={() => setShowCardForm(true)}>+</button>
+                    <button className='addNewTaskButton' onClick={() => setShowCardForm(true)}>+</button>
+                    <div className='formContainer'>
+                        {showCardForm &&             
+                            (<div>
+                            <form className='cardsForm' onSubmit={(e) => createTaskForm(e)}>
+                                <label>Priority</label>
+                                <input name='priority'></input>
+                                <label>Text</label>
+                                <input name='text'></input>
+                                <label>Status</label>
+                                <select name='status'>
+                                    <option value={"Active"}>Active</option>
+                                    <option value={"Done"}>Done</option>
+                                </select>
+                                <div className='createButtonContainer'>
+                                    <button className='createButton' type='submit'>Create</button>
+                                </div>
+                            </form>
+                        </div>)}
+                    </div>
                 </div>
                 {tasks.length > 0 && tasks.map(task => {
                     return task.status !== 'DELETED' && task.status !== 'DONE' && (<Card
@@ -80,23 +100,6 @@ function CardsContainer(){
                     onUpdateCard = {updateCard}
                 ></Card>)
                 })}
-            </div>
-            <div className='formContainer'>
-                {showCardForm &&             
-                    (<div>
-                    <form className='cardsForm' onSubmit={(e) => createTaskForm(e)}>
-                        <label>Priority</label>
-                        <input name='priority'></input>
-                        <label>Text</label>
-                        <input name='text'></input>
-                        <label>Status</label>
-                        <select name='status'>
-                            <option value={"Active"}>Active</option>
-                            <option value={"Done"}>Done</option>
-                        </select>
-                        <button className='createBtn' type='submit'>Create</button>
-                    </form>
-                </div>)}
             </div>
             <div className='statsContainer'>
                 <span>Active {activeTasks}</span>

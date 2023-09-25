@@ -3,7 +3,13 @@
     border: solid 1px black;
     flex-direction: column;
     margin: 0;
-    padding: 20px;
+    padding: 10px 20px 20px 20px;
+    background-color: aquamarine;
+}
+.priorityDiv, .textDiv, .statusDiv{
+    color: black;
+    font-size: 20px;
+    font-family: sans-serif;
 }
 .deleteButtonContainer{
     display: flex;
@@ -11,24 +17,26 @@
     margin-bottom: 20px;
 }
 .close {
-    width: 64px;
-    height: 64px;
-    opacity: 0.3;
-    background: transparent;
-    border: none;
+    border-radius: 100%;
+    padding: 0px 15px 0px 15px;
+    background-color: transparent;
+    font-size: 30px;
+    color: #428136;
 }
 .close:hover {
     opacity: 1;
+    /* background-color: rgb(1, 134, 23); */
+    border: transparent;
+    color: #333;
 }
-.close:before, .close:after {
-    content: ' ';
-    height: 66px;
-    width: 4px;
-    background-color: #333;
+.doneButton{
+    background-color: transparent;
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
 }
-.close:before {
-    transform: rotate(45deg);
-}
-.close:after {
-    transform: rotate(-45deg);
+.doneButton:hover{
+    background-color: green;
+    color: white;
+    border-color: transparent;
 }
