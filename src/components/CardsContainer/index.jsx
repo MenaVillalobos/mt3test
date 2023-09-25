@@ -4,8 +4,14 @@ import Card from '../Card';
 import { uniqueId } from '../../utils';
 
 function CardsContainer(){
+    const storageArray = localStorage.getItem('tasks')
+    let tasksArray = undefined;
+    if(storageArray) {
+        tasksArray = JSON.parse(storageArray);
+    }
+
     const [showCardForm, setShowCardForm] = useState(false);
-    const [tasks, setTasks] = useState([]);
+    const [tasks, setTasks] = useState( tasksArray || []);
     const [activeTasks, setActiveTasks] = useState();
     const [doneTasks, setDoneTasks] = useState();
 
@@ -56,7 +62,7 @@ function CardsContainer(){
         const result = countActiveAndDoneTasks();
         setActiveTasks(result.activeTasks);
         setDoneTasks(result.doneTasks);
-
+        localStorage.setItem('tasks', JSON.stringify(tasks));
     }, [tasks]);
 
     return(
