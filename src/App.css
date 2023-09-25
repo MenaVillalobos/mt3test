@@ -5,6 +5,9 @@
   text-align: center;
   background-color: #43ED3F;
 }
+body{
+  background-color: #43ED3F;
+}
 
 .logo {
   height: 6em;
@@ -36,6 +39,7 @@
 
 .card {
   padding: 2em;
+  overflow: scroll;
 }
 
 .read-the-docs {

@@ -17,14 +17,15 @@ function CardsContainer(){
 
     const createTaskForm = (event) => {
         event.preventDefault();
-        const {priority, text, status} = event.target;
+        const {priority, text, status, dueDate} = event.target;
         setTasks((prevState) => [
             ...prevState,
             {
                 id: uniqueId(),
                 priority: priority.value,
                 text: text.value,
-                status: status.value
+                status: status.value,
+                dueDate: dueDate.value
             }
         ])
         setShowCardForm(false);
@@ -54,9 +55,6 @@ function CardsContainer(){
             doneTasks,
         }
     }
-    // function countDoneTasks = () => {
-
-    // };
 
     useEffect(() => {
         console.log(tasks);
@@ -84,6 +82,8 @@ function CardsContainer(){
                                     <option value={"Active"}>Active</option>
                                     <option value={"Done"}>Done</option>
                                 </select>
+                                <label>Date</label>
+                                <input name='dueDate' type='date'></input>
                                 <div className='createButtonContainer'>
                                     <button className='createButton' type='submit'>Create</button>
                                 </div>
@@ -94,6 +94,7 @@ function CardsContainer(){
                 {tasks.length > 0 && tasks.map(task => {
                     return task.status !== 'DELETED' && task.status !== 'DONE' && (<Card
                     id = {task.id}
+                    date = {task.dueDate}
                     priority = {task.priority}
                     text = {task.text}
                     status = {task.status}
